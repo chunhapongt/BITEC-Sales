@@ -29,7 +29,7 @@
         .info-box { background: #fff; border: 2px solid #f0f0f0; border-radius: 15px; padding: 20px; margin-top: 15px; display: none; }
         .data-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
         .data-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; padding: 8px 12px; background: #fafafa; border-radius: 10px; border: 1px solid #f0f0f0; }
-        .icon { font-size: 1.3rem; width: 30px; display: inline-block; }
+        .icon { font-size: 1.3rem; min-width: 30px; display: inline-flex; align-items: center; justify-content: center; }
         .quiz-nav { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
         .quiz-btn { border: none; padding: 18px; border-radius: 15px; cursor: pointer; font-size: 1.05rem; font-weight: 600; color: white; transition: 0.2s; }
         .quiz-btn.beginner { background: #444; }
@@ -51,7 +51,6 @@
         <button class="floor-btn" id="btn-f2" onclick="switchFloor(2)">BITEC 2nd Floor</button>
     </div>
 
-    <!-- 1st Floor -->
     <div id="view-f1" class="card active">
         <h2 id="title-f1" style="color:var(--red)">BITEC 1st Floor</h2>
         <img id="img-f1" src="BITEC 1st Floor.png" alt="Floor Plan" class="floor-img">
@@ -63,7 +62,6 @@
         </div>
     </div>
 
-    <!-- 2nd Floor -->
     <div id="view-f2" class="card">
         <h2 id="title-f2" style="color:var(--blue)">BITEC 2nd Floor</h2>
         <img id="img-f2" src="BITEC 2nd Floor.png" alt="Floor Plan" class="floor-img">
@@ -75,7 +73,6 @@
         </div>
     </div>
 
-    <!-- Quiz Screen -->
     <div id="quiz-screen" class="card">
         <h2 id="quiz-head" style="color:#6c5ce7">แบบทดสอบ</h2>
         <div id="quiz-content">
@@ -91,23 +88,23 @@
 </div>
 
 <script>
-    // ฐานข้อมูล BITEC 2025
+    // ฐานข้อมูลอ้างอิง BITEC 2025
     const bitecData = {
-        'EH 98': { f: 1, dim: '88x98', h: '15', area: '8,600', t: '9,000', c: '5,500', cock: '6,700', b_s: '3,500', booth: '500' },
-        'EH 99': { f: 1, dim: '88x63', h: '15', area: '5,500', t: '5,700', c: '3,200', cock: '4,300', b_s: '2,100', booth: '330' },
-        'EH 100': { f: 1, dim: '106x63', h: '25', area: '6,600', t: '7,200', c: '4,000', cock: '5,200', b_s: '2,600', booth: '400' },
-        'EH 101': { f: 1, dim: '97x56', h: '15', area: '5,480', t: '5,700', c: '3,600', cock: '4,200', b_s: '2,000', booth: '300' },
-        'EH 102': { f: 1, dim: '97x54', h: '15', area: '5,240', t: '5,700', c: '3,300', cock: '4,000', b_s: '1,800', booth: '300' },
-        'EH 103': { f: 1, dim: '97x54', h: '15', area: '5,240', t: '5,700', c: '3,300', cock: '4,000', b_s: '1,800', booth: '300' },
-        'EH 104': { f: 1, dim: '97x45', h: '15', area: '4,360', t: '4,300', c: '2,700', cock: '3,400', b_s: '1,500', booth: '250' },
-        'GH 201-203': { f: 2, dim: '31x58', h: '9', area: '1,720', t: '2,000', c: '1,100', cock: '1,300', b_ns: '1,000', b_s: '900', booth: '100' },
-        'GH 201': { f: 2, dim: '31x17', h: '9', area: '540', t: '520', c: '300', cock: '400', b_ns: '320', b_s: '240', booth: '30' },
-        'GH 202': { f: 2, dim: '31x18', h: '9', area: '540', t: '520', c: '300', cock: '400', b_ns: '320', b_s: '240', booth: '30' },
-        'GH 203': { f: 2, dim: '31x23', h: '9', area: '640', t: '720', c: '400', cock: '500', b_ns: '480', b_s: '360', booth: '30' },
-        'BH 1-3': { f: 2, dim: '44x80', h: '12', area: '3,300', t: '3,600', c: '2,200', cock: '2,100', b_ns: '2,000', b_s: '1,700', booth: '170' },
-        'BH 1': { f: 2, dim: '44x26', h: '12', area: '1,100', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '50' },
-        'BH 2': { f: 2, dim: '44x27', h: '12', area: '1,100', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '60' },
-        'BH 3': { f: 2, dim: '44x26', h: '12', area: '1,100', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '50' },
+        'EH 98': { f: 1, dim: '88x98', h: '15', t: '9,000', c: '5,500', cock: '6,700', b_s: '3,500', booth: '500' },
+        'EH 99': { f: 1, dim: '88x63', h: '15', t: '5,700', c: '3,200', cock: '4,300', b_s: '2,100', booth: '330' },
+        'EH 100': { f: 1, dim: '106x63', h: '25', t: '7,200', c: '4,000', cock: '5,200', b_s: '2,600', booth: '400' },
+        'EH 101': { f: 1, dim: '97x56', h: '15', t: '5,700', c: '3,600', cock: '4,200', b_s: '2,000', booth: '300' },
+        'EH 102': { f: 1, dim: '97x54', h: '15', t: '5,700', c: '3,300', cock: '4,000', b_s: '1,800', booth: '300' },
+        'EH 103': { f: 1, dim: '97x54', h: '15', t: '5,700', c: '3,300', cock: '4,000', b_s: '1,800', booth: '300' },
+        'EH 104': { f: 1, dim: '97x45', h: '15', t: '4,300', c: '2,700', cock: '3,400', b_s: '1,500', booth: '250' },
+        'GH 201-203': { f: 2, dim: '31x58', h: '9', t: '2,000', c: '1,100', cock: '1,300', b_ns: '1,000', b_s: '900', booth: '100' },
+        'GH 201': { f: 2, dim: '31x17', h: '9', t: '520', c: '300', cock: '400', b_ns: '320', b_s: '240', booth: '30' },
+        'GH 202': { f: 2, dim: '31x18', h: '9', t: '520', c: '300', cock: '400', b_ns: '320', b_s: '240', booth: '30' },
+        'GH 203': { f: 2, dim: '31x23', h: '9', t: '720', c: '400', cock: '500', b_ns: '480', b_s: '360', booth: '30' },
+        'BH 1-3': { f: 2, dim: '44x80', h: '12', t: '3,600', c: '2,200', cock: '2,100', b_ns: '2,000', b_s: '1,700', booth: '170' },
+        'BH 1': { f: 2, dim: '44x26', h: '12', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '50' },
+        'BH 2': { f: 2, dim: '44x27', h: '12', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '60' },
+        'BH 3': { f: 2, dim: '44x26', h: '12', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '50' },
         'MR 211': { f: 2, dim: '12x9', h: '4', t: '80', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
         'MR 212': { f: 2, dim: '12x9', h: '4', t: '80', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
         'MR 213': { f: 2, dim: '12x9', h: '4', t: '80', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
@@ -124,17 +121,8 @@
         'MR 224': { f: 2, dim: '12x14', h: '4', t: '140', c: '80', cock: '130', u: '30', b_ns: '110', b_s: '80' },
         'MR 225': { f: 2, dim: '12x9', h: '4', t: '90', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
         'SILK 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'SILK 2': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'SILK 3': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'SILK 4': { f: 2, dim: '10x14', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
         'NILE 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'NILE 2': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'NILE 3': { f: 2, dim: '10x16', h: '6', t: '120', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '40' },
-        'NILE 4': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'AMBER 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'AMBER 2': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'AMBER 3': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'AMBER 4': { f: 2, dim: '8x12', h: '3.2', t: '70', c: '30', cock: '80', u: '25', b_ns: '60', b_s: '40' }
+        'AMBER 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' }
     };
 
     function switchFloor(f) {
@@ -142,7 +130,6 @@
         document.getElementById('view-f2').classList.toggle('active', f===2);
         document.getElementById('btn-f1').classList.toggle('active', f===1);
         document.getElementById('btn-f2').classList.toggle('active', f===2);
-        // Reset to Default Floor Image
         document.getElementById(`img-f${f}`).src = f===1 ? 'BITEC 1st Floor.png' : 'BITEC 2nd Floor.png';
         document.getElementById('quiz-screen').classList.remove('active');
         window.scrollTo(0,0);
@@ -158,18 +145,15 @@
                 const d = bitecData[key];
                 const box = document.getElementById(`details-f${f}`);
                 const img = document.getElementById(`img-f${f}`);
-                
-                // แก้ปัญหาชื่อไฟล์รูป
                 img.src = `${key}.png`; 
                 img.onerror = () => { img.src = f===1 ? 'BITEC 1st Floor.png' : 'BITEC 2nd Floor.png'; };
-
                 box.style.display = 'block';
                 box.innerHTML = `
                     <h3 style="margin:0 0 12px; color:var(--red);">📍 ${key}</h3>
                     <div class="data-row">
                         <div class="data-item"><span class="icon">📏</span> ขนาด: ${d.dim} ม.</div>
                         <div class="data-item"><span class="icon">↕️</span> ความสูง: ${d.h} ม.</div>
-                        <div class="data-item"><span class="icon">🪑</span> Theatre (เก้าอี้ล้วน): ${d.t}</div>
+                        <div class="data-item"><span class="icon">🎭</span> Theatre (เก้าอี้ล้วน): ${d.t}</div>
                         <div class="data-item"><span class="icon">📚</span> Classroom (โต๊ะพร้อมเก้าอี้): ${d.c}</div>
                         <div class="data-item"><span class="icon">🥂</span> Cocktail: ${d.cock}</div>
                         ${d.u ? `<div class="data-item"><span class="icon">🧲</span> U-Shape (จัดแบบตัว U): ${d.u}</div>` : ''}
@@ -184,14 +168,29 @@
         });
     }
 
-    // ฟังก์ชันสร้างตัวหลอกที่ไม่ซ้ำแน่นอน
-    function generateUniqueOthers(correctValue, suffix) {
+    // ระบบสุ่มตัวเลขแบบ Make Sense
+    function generateSmartOthers(correctValue, type) {
         let others = new Set();
-        let num = parseFloat(correctValue);
+        let num = parseFloat(correctValue.replace(/,/g, ''));
+        
         while(others.size < 2) {
-            let diff = Math.max(1, Math.round(num * (0.1 + Math.random() * 0.2)));
-            let newVal = Math.random() > 0.5 ? num + diff : num - diff;
-            if(newVal > 0 && newVal !== num) others.add(newVal + suffix);
+            let newVal;
+            if (type === 'capacity') {
+                // ตัวหลอกจำนวนคน ให้ห่างจากค่าจริง 10-25% และปัดเลขกลมๆ
+                let diff = Math.max(50, Math.round(num * (0.15 + Math.random() * 0.1) / 50) * 50);
+                newVal = Math.random() > 0.5 ? num + diff : num - diff;
+                if(newVal > 0 && newVal !== num) others.add(newVal.toLocaleString() + " คน");
+            } else if (type === 'booth') {
+                // ตัวหลอกบูธ ให้เป็นเลขลงท้าย 0 หรือ 5 เสมอ
+                let diff = [20, 30, 50, 100][Math.floor(Math.random() * 4)];
+                newVal = Math.random() > 0.5 ? num + diff : num - diff;
+                if(newVal > 0 && newVal !== num) others.add(newVal + " บูธ");
+            } else {
+                // สำหรับความสูง
+                let diff = (Math.random() * 3 + 1).toFixed(1);
+                newVal = (Math.random() > 0.5 ? num + parseFloat(diff) : num - parseFloat(diff)).toFixed(1);
+                if(newVal > 0 && newVal != num) others.add(newVal + " ม.");
+            }
         }
         return Array.from(others);
     }
@@ -203,21 +202,17 @@
         halls.forEach(h => {
             const d = bitecData[h];
             if(level === 'beginner') {
-                qList.push({ q: `ห้อง ${h} มีความสูงเท่าไหร่?`, correct: `${d.h} ม.`, others: generateUniqueOthers(d.h, " ม.") });
-                qList.push({ q: `ห้อง ${h} มีขนาด กว้าง x ยาว เท่าไหร่?`, correct: `${d.dim} ม.`, others: ["100x100 ม.", "50x50 ม."] });
+                qList.push({ q: `ห้อง ${h} มีความสูงเท่าไหร่?`, correct: `${d.h} ม.`, others: generateSmartOthers(d.h, 'height') });
+                qList.push({ q: `ห้อง ${h} มีขนาด กว้าง x ยาว เท่าไหร่?`, correct: `${d.dim} ม.`, others: ["95x47 ม.", "85x63 ม."] });
             } else {
-                qList.push({ q: `ห้อง ${h} รองรับ Theatre ได้กี่คน?`, correct: `${d.t} คน`, others: generateUniqueOthers(d.t, " คน") });
-                if(d.booth) qList.push({ q: `ห้อง ${h} วางบูธ 3x3 ได้กี่บูธ?`, correct: `${d.booth} บูธ`, others: generateUniqueOthers(d.booth, " บูธ") });
+                qList.push({ q: `ห้อง ${h} รองรับ Theatre ได้กี่คน?`, correct: `${d.t} คน`, others: generateSmartOthers(d.t, 'capacity') });
+                if(d.booth) qList.push({ q: `ห้อง ${h} วางบูธ 3x3 ได้กี่บูธ?`, correct: `${d.booth} บูธ`, others: generateSmartOthers(d.booth, 'booth') });
             }
         });
         qList = qList.sort(() => 0.5 - Math.random()).slice(0, 10);
         curQ = 0; score = 0;
-        document.getElementById('view-f1').classList.remove('active');
-        document.getElementById('view-f2').classList.remove('active');
-        document.getElementById('quiz-screen').classList.add('active');
-        document.getElementById('quiz-content').style.display = 'block';
-        document.getElementById('result-area').style.display = 'none';
-        loadQ();
+        document.getElementById('view-f1').classList.remove('active'); document.getElementById('view-f2').classList.remove('active');
+        document.getElementById('quiz-screen').classList.add('active'); loadQ();
     }
 
     function loadQ() {
@@ -227,17 +222,11 @@
             document.getElementById('final-score').innerText = `คะแนนของคุณ: ${score} / 10`;
             return;
         }
-        const q = qList[curQ];
-        document.getElementById('q-text').innerText = `ข้อที่ ${curQ+1}: ${q.q}`;
-        const box = document.getElementById('options-box');
-        box.innerHTML = "";
-        document.getElementById('feedback').innerText = "";
-        
+        const q = qList[curQ]; document.getElementById('q-text').innerText = `ข้อที่ ${curQ+1}: ${q.q}`;
+        const box = document.getElementById('options-box'); box.innerHTML = ""; document.getElementById('feedback').innerText = "";
         let opts = [q.correct, ...q.others].sort(() => 0.5 - Math.random());
         opts.forEach(opt => {
-            const b = document.createElement('button');
-            b.className = "option-btn";
-            b.innerText = opt;
+            const b = document.createElement('button'); b.className = "option-btn"; b.innerText = opt;
             b.onclick = () => {
                 if(opt === q.correct) { score++; document.getElementById('feedback').innerText = "✅ ถูกต้อง!"; document.getElementById('feedback').style.color = "green"; }
                 else { document.getElementById('feedback').innerText = "❌ ผิด! คำตอบคือ " + q.correct; document.getElementById('feedback').style.color = "red"; }
@@ -248,9 +237,6 @@
     }
 
     init();
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => { navigator.serviceWorker.register('https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.3/workbox-sw.js'); });
-    }
 </script>
 </body>
 </html>
