@@ -78,7 +78,7 @@
         <div id="quiz-content">
             <p id="q-text" style="font-size:1.15rem; font-weight:600; min-height: 60px;"></p>
             <div id="options-box"></div>
-            <div id="feedback" style="margin-top:15px; font-weight:bold;"></div>
+            <div id="feedback" style="margin-top:15px; font-weight:bold;"></p></div>
         </div>
         <div id="result-area" style="display:none; text-align:center;">
             <h3 id="final-score" style="font-size:2.5rem; color:var(--blue);"></h3>
@@ -88,7 +88,6 @@
 </div>
 
 <script>
-    // ฐานข้อมูลอ้างอิง BITEC 2025
     const bitecData = {
         'EH 98': { f: 1, dim: '88x98', h: '15', t: '9,000', c: '5,500', cock: '6,700', b_s: '3,500', booth: '500' },
         'EH 99': { f: 1, dim: '88x63', h: '15', t: '5,700', c: '3,200', cock: '4,300', b_s: '2,100', booth: '330' },
@@ -122,7 +121,8 @@
         'MR 225': { f: 2, dim: '12x9', h: '4', t: '90', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
         'SILK 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
         'NILE 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
-        'AMBER 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' }
+        'AMBER 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
+        'AMBER 4': { f: 2, dim: '8x12', h: '3', t: '70', c: '30', cock: '80', u: '25', b_ns: '60', b_s: '40' }
     };
 
     function switchFloor(f) {
@@ -168,7 +168,6 @@
         });
     }
 
-    // ระบบสุ่มตัวเลขแบบ Make Sense
     function generateSmartOthers(correctValue, type) {
         let others = new Set();
         let num = parseFloat(correctValue.replace(/,/g, ''));
@@ -176,20 +175,18 @@
         while(others.size < 2) {
             let newVal;
             if (type === 'capacity') {
-                // ตัวหลอกจำนวนคน ให้ห่างจากค่าจริง 10-25% และปัดเลขกลมๆ
                 let diff = Math.max(50, Math.round(num * (0.15 + Math.random() * 0.1) / 50) * 50);
                 newVal = Math.random() > 0.5 ? num + diff : num - diff;
                 if(newVal > 0 && newVal !== num) others.add(newVal.toLocaleString() + " คน");
             } else if (type === 'booth') {
-                // ตัวหลอกบูธ ให้เป็นเลขลงท้าย 0 หรือ 5 เสมอ
                 let diff = [20, 30, 50, 100][Math.floor(Math.random() * 4)];
                 newVal = Math.random() > 0.5 ? num + diff : num - diff;
                 if(newVal > 0 && newVal !== num) others.add(newVal + " บูธ");
             } else {
-                // สำหรับความสูง
-                let diff = (Math.random() * 3 + 1).toFixed(1);
-                newVal = (Math.random() > 0.5 ? num + parseFloat(diff) : num - parseFloat(diff)).toFixed(1);
-                if(newVal > 0 && newVal != num) others.add(newVal + " ม.");
+                // สำหรับความสูง (ไม่มีทศนิยม)
+                let diff = Math.floor(Math.random() * 3 + 1);
+                newVal = Math.random() > 0.5 ? num + diff : num - diff;
+                if(newVal > 0 && newVal !== num) others.add(newVal + " ม.");
             }
         }
         return Array.from(others);
@@ -202,7 +199,7 @@
         halls.forEach(h => {
             const d = bitecData[h];
             if(level === 'beginner') {
-                qList.push({ q: `ห้อง ${h} มีความสูงเท่าไหร่?`, correct: `${d.h} ม.`, others: generateSmartOthers(d.h, 'height') });
+                qList.push({ q: `ห้อง ${h} มีความสูงเท่าไหร่?`, correct: `${d.h} ม.`, others: generateSmartOthers(d.h.toString(), 'height') });
                 qList.push({ q: `ห้อง ${h} มีขนาด กว้าง x ยาว เท่าไหร่?`, correct: `${d.dim} ม.`, others: ["95x47 ม.", "85x63 ม."] });
             } else {
                 qList.push({ q: `ห้อง ${h} รองรับ Theatre ได้กี่คน?`, correct: `${d.t} คน`, others: generateSmartOthers(d.t, 'capacity') });
