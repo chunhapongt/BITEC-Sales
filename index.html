@@ -3,174 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BITEC Event Hall Mastery</title>
+    <title>BITEC Smart Learning (Chibi Edition)</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --red: #e31e24; --blue: #005eb8; --bg: #f0f2f5; }
+        :root { --red: #e31e24; --blue: #005eb8; --bg: #fff5f5; --card: #ffffff; }
         body { font-family: 'Kanit', sans-serif; background: var(--bg); margin: 0; color: #333; }
-        header { background: var(--red); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .container { max-width: 1000px; margin: 20px auto; width: 95%; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
         
-        /* Learning Navigation */
-        .hall-nav { display: flex; overflow-x: auto; gap: 10px; margin-bottom: 20px; padding-bottom: 10px; }
-        .hall-tab { padding: 10px 20px; background: #ddd; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-        .hall-tab.active { background: var(--blue); color: white; }
+        /* Chibi Header */
+        header { background: linear-gradient(135deg, var(--red), #ff6b6b); color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 40px 40px; position: relative; overflow: hidden; }
+        header::after { content: '✨ 🧸 ✨'; position: absolute; bottom: 10px; right: 20px; font-size: 2rem; opacity: 0.5; }
         
-        /* Data Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95em; }
-        th, td { border: 1px solid #eee; padding: 12px; text-align: center; }
-        th { background: #f8f9fa; color: var(--blue); }
-        .highlight { color: var(--red); font-weight: bold; }
+        .container { max-width: 1000px; margin: -30px auto 40px; width: 95%; }
         
-        .hall-img { width: 100%; border-radius: 10px; margin-bottom: 20px; }
-        .btn { background: var(--blue); color: white; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; font-size: 16px; display: block; margin: 20px auto; }
-        .btn:disabled { background: #ccc; cursor: not-allowed; }
-        
-        #quiz-area { display: none; }
-        .option-btn { width: 100%; text-align: left; background: #f8f9fa; margin: 5px 0; border: 1px solid #ddd; padding: 15px; border-radius: 10px; cursor: pointer; }
-        .option-btn:hover { background: #eef2f7; }
+        /* Main Navigation */
+        .floor-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .floor-btn { padding: 20px; border-radius: 20px; border: none; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .floor-btn.f1 { background: white; color: var(--red); border: 2px solid var(--red); }
+        .floor-btn.f2 { background: white; color: var(--blue); border: 2px solid var(--blue); }
+        .floor-btn.active.f1 { background: var(--red); color: white; }
+        .floor-btn.active.f2 { background: var(--blue); color: white; }
+
+        .card { background: var(--card); padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; display: none; }
+        .card.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Chibi Stickers */
+        .chibi-icon { font-size: 3rem; margin-bottom: 10px; display: block; }
+
+        /* Hall Info Design */
+        .hall-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
+        .hall-tag { background: #fdf2f2; padding: 10px; border-radius: 15px; text-align: center; font-size: 0.9rem; border: 1px solid #ffebeb; cursor: pointer; }
+        .hall-tag:hover { background: #fee2e2; }
+
+        table { width: 100%; border-collapse: collapse; border-radius: 15px; overflow: hidden; margin: 20px 0; font-size: 0.85rem; }
+        th { background: var(--blue); color: white; padding: 12px; }
+        td { border: 1px solid #eee; padding: 10px; text-align: center; }
+
+        .btn-quiz { background: #6c5ce7; color: white; border: none; padding: 15px 40px; border-radius: 30px; font-size: 1.1rem; cursor: pointer; display: block; margin: 20px auto; }
+        .option-btn { width: 100%; text-align: left; padding: 15px; margin: 8px 0; border: 2px solid #eee; border-radius: 15px; background: white; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { border-color: var(--blue); background: #f0f7ff; }
+
+        .floor-img { width: 100%; border-radius: 20px; margin-bottom: 20px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>BITEC Event Hall Mastery 2025</h1>
-    <p>หลักสูตรเจาะลึกพื้นที่การจัดงานสำหรับทีมขาย</p>
+    <h1>BITEC Adventure ✨</h1>
+    <p>มาเรียนรู้พื้นที่ไบเทคไปกับ Chibi Guide กันเถอะ!</p>
 </header>
 
 <div class="container">
-    <!-- หน้าสื่อการสอน -->
-    <div id="learning-area" class="card">
-        <h2>📍 ขั้นตอนที่ 1: เรียนรู้ข้อมูลฮอลล์ (EH 98 - EH 104)</h2>
-        <p>เลือกคลิกแต่ละฮอลล์เพื่อศึกษาข้อมูล กว้างxยาว และความจุ ก่อนเริ่มแบบทดสอบครับ</p>
-
-        <!-- รูปภาพ Floor Plan รวม -->
-        <img src="BITEC 1st Floor.png" alt="BITEC Ground Floor Plan" class="hall-img">
-
-        <div class="hall-nav" id="hallNav">
-            <!-- Tabs จะถูกสร้างด้วย JS -->
-        </div>
-
-        <div id="hallDetails" class="card" style="background: #fdfdfd; border: 1px solid #eee;">
-            <!-- ข้อมูลฮอลล์จะแสดงที่นี่ -->
-        </div>
-
-        <button id="startQuizBtn" class="btn" disabled onclick="showQuiz()">เรียนครบแล้ว เริ่มทำแบบทดสอบ</button>
+    <!-- เลือกชั้น -->
+    <div class="floor-selector">
+        <button class="floor-btn f1 active" onclick="switchFloor(1)">🏢 ชั้น 1 (Ground)</button>
+        <button class="floor-btn f2" onclick="switchFloor(2)">🏰 ชั้น 2 (Second)</button>
     </div>
 
-    <!-- หน้าแบบทดสอบ -->
-    <div id="quiz-area" class="card">
-        <h2 id="qText">คำถาม...</h2>
-        <div id="options"></div>
+    <!-- หน้าเรียนชั้น 1 -->
+    <div id="learn-f1" class="card active">
+        <span class="chibi-icon">🐶</span>
+        <h2>ศูนย์เรียนรู้ ชั้น 1 (Event Halls)</h2>
+        <img src="BITEC 1st Floor.png" alt="Ground Floor" class="floor-img">
+        <p>คลิกเลือกฮอลล์เพื่อดูความจุพื้นฐาน</p>
+        <div class="hall-grid">
+            <div class="hall-tag" onclick="showData('EH 98')">EH 98</div>
+            <div class="hall-tag" onclick="showData('EH 99')">EH 99</div>
+            <div class="hall-tag" onclick="showData('EH 100')">EH 100</div>
+            <div class="hall-tag" onclick="showData('EH 101')">EH 101</div>
+            <div class="hall-tag" onclick="showData('EH 104')">EH 104</div>
+        </div>
+        <div id="data-display-f1"></div>
+        <button class="btn-quiz" onclick="startQuiz(1)">🎮 เริ่มเล่น Quiz ชั้น 1</button>
+    </div>
+
+    <!-- หน้าเรียนชั้น 2 -->
+    <div id="learn-f2" class="card">
+        <span class="chibi-icon">🐱</span>
+        <h2>ศูนย์เรียนรู้ ชั้น 2 (Bhiraj & Grand Halls)</h2>
+        <img src="BITEC 2nd floor.png" alt="Second Floor" class="floor-img">
+        <p>ห้องประชุมและฮอลล์ระดับพรีเมียม</p>
+        <div class="hall-grid">
+            <div class="hall-tag" onclick="showData('BH 1-3')">Bhiraj 1-3</div>
+            <div class="hall-tag" onclick="showData('GH 201-203')">Grand Hall</div>
+            <div class="hall-tag" onclick="showData('MR 211-217')">Meeting Rms</div>
+            <div class="hall-tag" onclick="showData('SILK 1-4')">Silk Halls</div>
+        </div>
+        <div id="data-display-f2"></div>
+        <button class="btn-quiz" onclick="startQuiz(2)">🎮 เริ่มเล่น Quiz ชั้น 2</button>
+    </div>
+
+    <!-- ส่วน Quiz (แสดงเมื่อกดเริ่ม) -->
+    <div id="quiz-screen" class="card">
+        <span class="chibi-icon">⭐</span>
+        <h2 id="quiz-title">แบบทดสอบ</h2>
+        <p id="q-text"></p>
+        <div id="options-box"></div>
         <div id="feedback" style="margin-top:20px; font-weight:600;"></div>
+        <button class="floor-btn" style="width:auto; margin-top:20px;" onclick="location.reload()">🔙 กลับหน้าหลัก</button>
     </div>
 </div>
 
 <script>
-    const hallData = [
-        { id: "EH 98", dim: "88 x 98", area: "8,600", h: "15", t: "9,000", c: "5,500", cock: "6,700", ban: "3,500", booth: "500" },
-        { id: "EH 99", dim: "88 x 63", area: "5,500", h: "15", t: "5,700", c: "3,200", cock: "4,300", ban: "2,100", booth: "330" },
-        { id: "EH 100", dim: "106 x 63", area: "6,600", h: "25", t: "7,200", c: "4,000", cock: "5,200", ban: "2,600", booth: "400" },
-        { id: "EH 101", dim: "97 x 56", area: "5,480", h: "15", t: "5,700", c: "3,600", cock: "4,200", ban: "2,000", booth: "300" },
-        { id: "EH 102", dim: "97 x 54", area: "5,240", h: "15", t: "5,700", c: "3,300", cock: "4,000", ban: "1,800", booth: "300" },
-        { id: "EH 103", dim: "97 x 54", area: "5,240", h: "15", t: "5,700", c: "3,300", cock: "4,000", ban: "1,800", booth: "300" },
-        { id: "EH 104", dim: "97 x 45", area: "4,360", h: "15", t: "4,300", c: "2,700", cock: "3,400", ban: "1,500", booth: "250" }
-    ];
+    const bitecData = {
+        'EH 98': { dim: '88x98', t: '9,000', c: '3,500', note: 'ฮอลล์ใหญ่ที่สุดในชั้น 1' },
+        'EH 100': { dim: '106x63', t: '7,200', h: '25 ม.', note: 'เพดานสูงที่สุด (25 เมตร)' },
+        'EH 104': { dim: '97x45', t: '4,300', note: 'พื้นที่ 4,360 ตร.ม.' },
+        'BH 1-3': { dim: '44x80', t: '3,600', area: '3,300 ตร.ม.', note: 'Bhiraj Hall ชั้น 2' },
+        'GH 201-203': { dim: '31x58', t: '2,000', classroom: '1,100', note: 'Grand Halls ชั้น 2' },
+        'SILK 1-4': { dim: '10x16', t: '170', note: 'ห้องประชุมขนาดกลางชั้น 2[cite: 1]' }
+    };
 
-    let visitedHalls = new Set();
-    let currentHallIndex = 0;
+    const quizzes = {
+        1: [
+            { q: "ฮอลล์ใดในชั้น 1 มีเพดานสูง 25 เมตร?[cite: 1]", a: ["EH 98", "EH 100", "EH 104"], c: 1 },
+            { q: "EH 98 รองรับการจัดแบบ Theatre ได้กี่คน?[cite: 1]", a: ["9,000 คน", "5,700 คน", "7,200 คน"], c: 0 }
+        ],
+        2: [
+            { q: "Bhiraj Hall 1-3 (ชั้น 2) มีพื้นที่รวมกี่ตารางเมตร?[cite: 1]", a: ["1,720 ตร.ม.", "3,300 ตร.ม.", "8,600 ตร.ม."], c: 1 },
+            { q: "Grand Hall (GH 201-203) รองรับ Classroom ได้กี่คน?[cite: 1]", a: ["500 คน", "1,100 คน", "2,000 คน"], c: 1 }
+        ]
+    };
 
-    // สร้าง Tab เมนู
-    const nav = document.getElementById('hallNav');
-    hallData.forEach((hall, index) => {
-        const tab = document.createElement('div');
-        tab.className = 'hall-tab';
-        tab.innerText = hall.id;
-        tab.onclick = () => showHall(index);
-        nav.appendChild(tab);
-    });
-
-    function showHall(index) {
-        currentHallIndex = index;
-        const hall = hallData[index];
-        visitedHalls.add(hall.id);
-        
-        // อัปเดต Tab Active
-        document.querySelectorAll('.hall-tab').forEach((t, i) => {
-            t.className = i === index ? 'hall-tab active' : 'hall-tab';
-        });
-
-        // แสดงข้อมูลจากตาราง
-        document.getElementById('hallDetails').innerHTML = `
-            <h3>${hall.id} - รายละเอียดพื้นที่</h3>
-            <p>ขนาดพื้นที่: <span class="highlight">${hall.dim} เมตร</span> (${hall.area} ตร.ม.)</p>
-            <p>ความสูงเพดาน: <span class="highlight">${hall.h} เมตร</span></p>
-            <table>
-                <tr><th>รูปแบบการจัด</th><th>Theatre</th><th>Classroom</th><th>Cocktail</th><th>Banquet</th></tr>
-                <tr>
-                    <td>ความจุ (คน)</td>
-                    <td>${hall.t}</td>
-                    <td>${hall.c}</td>
-                    <td>${hall.cock}</td>
-                    <td>${hall.ban}</td>
-                </tr>
-            </table>
-            <p style="text-align:right; font-size:0.8em;">*รองรับบูธขนาด 3x3 ม. ได้สูงสุด ${hall.booth} บูธ</p>
-        `;
-
-        if(visitedHalls.size === hallData.length) {
-            document.getElementById('startQuizBtn').disabled = false;
-        }
+    function switchFloor(f) {
+        document.querySelectorAll('.floor-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.f${f}`).classList.add('active');
+        document.getElementById('learn-f1').classList.toggle('active', f === 1);
+        document.getElementById('learn-f2').classList.toggle('active', f === 2);
+        document.getElementById('quiz-screen').classList.remove('active');
     }
 
-    // เริ่มต้นแสดง EH 98
-    showHall(0);
-
-    // ระบบ Quiz สุ่มคำถามจากข้อมูลจริง
-    const questions = [
-        { q: "EH 98 มีขนาด กว้าง x ยาว เท่าไหร่?", a: ["88 x 98 ม.", "106 x 63 ม.", "97 x 56 ม."], c: 0 },
-        { q: "ฮอลล์ใดมีเพดานสูงที่สุด (25 เมตร)?", a: ["EH 98", "EH 99", "EH 100"], c: 2 },
-        { q: "ถ้าลูกค้าต้องการจัดงานเลี้ยงแบบ Cocktail 4,300 คน ควรแนะนำฮอลล์ใดที่พอดีที่สุด?", a: ["EH 99", "EH 101", "EH 104"], c: 0 },
-        { q: "EH 104 สามารถรองรับการจัดแบบ Theatre ได้กี่ที่นั่ง?", a: ["4,300 ที่นั่ง", "5,700 ที่นั่ง", "9,000 ที่นั่ง"], c: 0 },
-        { q: "ฮอลล์ EH 102 และ EH 103 มีขนาดพื้นที่เท่ากันคือเท่าไหร่?", a: ["5,480 ตร.ม.", "5,240 ตร.ม.", "4,360 ตร.ม."], c: 1 }
-    ];
+    function showData(key) {
+        const d = bitecData[key];
+        const target = document.querySelector('.card.active div[id^="data-display"]');
+        target.innerHTML = `
+            <div style="background:#fff9f9; padding:15px; border-radius:15px; margin-top:15px; border:2px dashed var(--red);">
+                <h3>🎀 ข้อมูล ${key}</h3>
+                <p>📏 ขนาด: ${d.dim} ม. | 🎭 Theatre: ${d.t} pax</p>
+                <p>✨ Note: ${d.note}</p>
+            </div>
+        `;
+    }
 
     let currentQ = 0;
-    function showQuiz() {
-        document.getElementById('learning-area').style.display = 'none';
-        document.getElementById('quiz-area').style.display = 'block';
-        loadQuestion();
+    let activeQuiz = [];
+
+    function startQuiz(f) {
+        activeQuiz = quizzes[f];
+        currentQ = 0;
+        document.getElementById('learn-f1').classList.remove('active');
+        document.getElementById('learn-f2').classList.remove('active');
+        document.getElementById('quiz-screen').classList.add('active');
+        document.getElementById('quiz-title').innerText = `แบบทดสอบ ชั้น ${f}`;
+        loadQ();
     }
 
-    function loadQuestion() {
-        if(currentQ >= questions.length) {
-            document.getElementById('quiz-area').innerHTML = "<h2>ยินดีด้วย! คุณเรียนรู้อุปกรณ์ครบทุกฮอลล์แล้ว</h2><button class='btn' onclick='location.reload()'>เริ่มเรียนใหม่อีกครั้ง</button>";
+    function loadQ() {
+        if(currentQ >= activeQuiz.length) {
+            document.getElementById('q-text').innerText = "🎉 เก่งมาก! ตอบถูกครบทุกข้อเลย";
+            document.getElementById('options-box').innerHTML = "";
             return;
         }
-        const q = questions[currentQ];
-        document.getElementById('qText').innerText = `ข้อที่ ${currentQ+1}: ${q.q}`;
-        const optDiv = document.getElementById('options');
-        optDiv.innerHTML = "";
+        const q = activeQuiz[currentQ];
+        document.getElementById('q-text').innerText = q.q;
+        const box = document.getElementById('options-box');
+        box.innerHTML = "";
+        document.getElementById('feedback').innerText = "";
+        
         q.a.forEach((opt, i) => {
             const btn = document.createElement('button');
             btn.className = "option-btn";
             btn.innerText = opt;
             btn.onclick = () => {
                 if(i === q.c) {
-                    document.getElementById('feedback').innerText = "✅ ถูกต้อง!";
-                    document.getElementById('feedback').style.color = "green";
+                    document.getElementById('feedback').innerText = "✅ เยี่ยมมากจ้า!";
                     currentQ++;
-                    setTimeout(loadQuestion, 1000);
+                    setTimeout(loadQ, 1000);
                 } else {
-                    document.getElementById('feedback').innerText = "❌ ข้อมูลไม่ตรงกับ Floor Plan ลองเช็กอีกทีครับ";
-                    document.getElementById('feedback').style.color = "red";
+                    document.getElementById('feedback').innerText = "❌ อ๊ะ! ลองดูข้อมูลอีกทีนะ";
                 }
             };
-            optDiv.appendChild(btn);
+            box.appendChild(btn);
         });
     }
 </script>
-
 </body>
 </html>
