@@ -51,34 +51,48 @@
         <button class="floor-btn" id="btn-f2" onclick="switchFloor(2)">BITEC 2nd Floor</button>
     </div>
 
-    <!-- View Section -->
+    <!-- 1st Floor -->
     <div id="view-f1" class="card active">
         <h2 id="title-f1" style="color:var(--red)">BITEC 1st Floor</h2>
         <img id="img-f1" src="BITEC 1st Floor.png" alt="Floor Plan" class="floor-img">
         <div class="hall-grid" id="grid-f1"></div>
         <div id="details-f1" class="info-box"></div>
-        <div class="quiz-nav"><button class="quiz-btn beginner" onclick="startQuiz(1, 'beginner')">🎯 Quiz: Beginner</button><button class="quiz-btn intermediate" onclick="startQuiz(1, 'intermediate')">🏆 Quiz: Intermediate</button></div>
+        <div class="quiz-nav">
+            <button class="quiz-btn beginner" onclick="startQuiz(1, 'beginner')">🎯 Quiz: Beginner</button>
+            <button class="quiz-btn intermediate" onclick="startQuiz(1, 'intermediate')">🏆 Quiz: Intermediate</button>
+        </div>
     </div>
 
+    <!-- 2nd Floor -->
     <div id="view-f2" class="card">
         <h2 id="title-f2" style="color:var(--blue)">BITEC 2nd Floor</h2>
         <img id="img-f2" src="BITEC 2nd Floor.png" alt="Floor Plan" class="floor-img">
         <div class="hall-grid" id="grid-f2"></div>
         <div id="details-f2" class="info-box"></div>
-        <div class="quiz-nav"><button class="quiz-btn beginner" onclick="startQuiz(2, 'beginner')">🎯 Quiz: Beginner</button><button class="quiz-btn intermediate" onclick="startQuiz(2, 'intermediate')">🏆 Quiz: Intermediate</button></div>
+        <div class="quiz-nav">
+            <button class="quiz-btn beginner" onclick="startQuiz(2, 'beginner')">🎯 Quiz: Beginner</button>
+            <button class="quiz-btn intermediate" onclick="startQuiz(2, 'intermediate')">🏆 Quiz: Intermediate</button>
+        </div>
     </div>
 
     <!-- Quiz Screen -->
     <div id="quiz-screen" class="card">
         <h2 id="quiz-head" style="color:#6c5ce7">แบบทดสอบ</h2>
-        <div id="quiz-content"><p id="q-text" style="font-size:1.15rem; font-weight:600; min-height: 60px;"></p><div id="options-box"></div><div id="feedback" style="margin-top:15px; font-weight:bold;"></div></div>
-        <div id="result-area" style="display:none; text-align:center;"><h3 id="final-score" style="font-size:2.5rem; color:var(--blue);"></h3><button class="floor-btn" onclick="location.reload()">🔙 กลับหน้าหลัก</button></div>
+        <div id="quiz-content">
+            <p id="q-text" style="font-size:1.15rem; font-weight:600; min-height: 60px;"></p>
+            <div id="options-box"></div>
+            <div id="feedback" style="margin-top:15px; font-weight:bold;"></div>
+        </div>
+        <div id="result-area" style="display:none; text-align:center;">
+            <h3 id="final-score" style="font-size:2.5rem; color:var(--blue);"></h3>
+            <button class="floor-btn" onclick="location.reload()">🔙 กลับหน้าหลัก</button>
+        </div>
     </div>
 </div>
 
 <script>
+    // ฐานข้อมูล BITEC 2025
     const bitecData = {
-        // Floor 1
         'EH 98': { f: 1, dim: '88x98', h: '15', area: '8,600', t: '9,000', c: '5,500', cock: '6,700', b_s: '3,500', booth: '500' },
         'EH 99': { f: 1, dim: '88x63', h: '15', area: '5,500', t: '5,700', c: '3,200', cock: '4,300', b_s: '2,100', booth: '330' },
         'EH 100': { f: 1, dim: '106x63', h: '25', area: '6,600', t: '7,200', c: '4,000', cock: '5,200', b_s: '2,600', booth: '400' },
@@ -86,8 +100,6 @@
         'EH 102': { f: 1, dim: '97x54', h: '15', area: '5,240', t: '5,700', c: '3,300', cock: '4,000', b_s: '1,800', booth: '300' },
         'EH 103': { f: 1, dim: '97x54', h: '15', area: '5,240', t: '5,700', c: '3,300', cock: '4,000', b_s: '1,800', booth: '300' },
         'EH 104': { f: 1, dim: '97x45', h: '15', area: '4,360', t: '4,300', c: '2,700', cock: '3,400', b_s: '1,500', booth: '250' },
-        
-        // Floor 2
         'GH 201-203': { f: 2, dim: '31x58', h: '9', area: '1,720', t: '2,000', c: '1,100', cock: '1,300', b_ns: '1,000', b_s: '900', booth: '100' },
         'GH 201': { f: 2, dim: '31x17', h: '9', area: '540', t: '520', c: '300', cock: '400', b_ns: '320', b_s: '240', booth: '30' },
         'GH 202': { f: 2, dim: '31x18', h: '9', area: '540', t: '520', c: '300', cock: '400', b_ns: '320', b_s: '240', booth: '30' },
@@ -96,8 +108,6 @@
         'BH 1': { f: 2, dim: '44x26', h: '12', area: '1,100', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '50' },
         'BH 2': { f: 2, dim: '44x27', h: '12', area: '1,100', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '60' },
         'BH 3': { f: 2, dim: '44x26', h: '12', area: '1,100', t: '1,200', c: '720', cock: '900', b_ns: '660', b_s: '480', booth: '50' },
-        
-        // MR Rooms
         'MR 211': { f: 2, dim: '12x9', h: '4', t: '80', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
         'MR 212': { f: 2, dim: '12x9', h: '4', t: '80', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
         'MR 213': { f: 2, dim: '12x9', h: '4', t: '80', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
@@ -113,8 +123,6 @@
         'MR 223': { f: 2, dim: '12x8', h: '4', t: '90', c: '60', cock: '70', u: '25', b_ns: '60', b_s: '50' },
         'MR 224': { f: 2, dim: '12x14', h: '4', t: '140', c: '80', cock: '130', u: '30', b_ns: '110', b_s: '80' },
         'MR 225': { f: 2, dim: '12x9', h: '4', t: '90', c: '60', cock: '80', u: '25', b_ns: '60', b_s: '50' },
-        
-        // Nile, Silk, Amber
         'SILK 1': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
         'SILK 2': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
         'SILK 3': { f: 2, dim: '10x16', h: '6', t: '170', c: '80', cock: '130', u: '40', b_ns: '120', b_s: '90' },
@@ -134,6 +142,7 @@
         document.getElementById('view-f2').classList.toggle('active', f===2);
         document.getElementById('btn-f1').classList.toggle('active', f===1);
         document.getElementById('btn-f2').classList.toggle('active', f===2);
+        // Reset to Default Floor Image
         document.getElementById(`img-f${f}`).src = f===1 ? 'BITEC 1st Floor.png' : 'BITEC 2nd Floor.png';
         document.getElementById('quiz-screen').classList.remove('active');
         window.scrollTo(0,0);
@@ -149,7 +158,11 @@
                 const d = bitecData[key];
                 const box = document.getElementById(`details-f${f}`);
                 const img = document.getElementById(`img-f${f}`);
-                img.src = `${key}.png`; // เปลี่ยนเป็นรูปห้อง
+                
+                // แก้ปัญหาชื่อไฟล์รูป
+                img.src = `${key}.png`; 
+                img.onerror = () => { img.src = f===1 ? 'BITEC 1st Floor.png' : 'BITEC 2nd Floor.png'; };
+
                 box.style.display = 'block';
                 box.innerHTML = `
                     <h3 style="margin:0 0 12px; color:var(--red);">📍 ${key}</h3>
@@ -171,13 +184,17 @@
         });
     }
 
-    // Helper: สุ่มเลขใกล้เคียง
-    const getNearValue = (val, suffix = "") => {
-        const num = parseFloat(val);
-        const diff = Math.max(1, Math.round(num * 0.15));
-        const res = Math.random() > 0.5 ? num + diff : num - diff;
-        return (res > 0 ? res : num + diff) + suffix;
-    };
+    // ฟังก์ชันสร้างตัวหลอกที่ไม่ซ้ำแน่นอน
+    function generateUniqueOthers(correctValue, suffix) {
+        let others = new Set();
+        let num = parseFloat(correctValue);
+        while(others.size < 2) {
+            let diff = Math.max(1, Math.round(num * (0.1 + Math.random() * 0.2)));
+            let newVal = Math.random() > 0.5 ? num + diff : num - diff;
+            if(newVal > 0 && newVal !== num) others.add(newVal + suffix);
+        }
+        return Array.from(others);
+    }
 
     let qList = [], curQ = 0, score = 0;
     function startQuiz(floor, level) {
@@ -186,31 +203,41 @@
         halls.forEach(h => {
             const d = bitecData[h];
             if(level === 'beginner') {
-                qList.push({ q: `ห้อง ${h} มีความสูงเท่าไหร่?`, correct: `${d.h} ม.`, others: [getNearValue(d.h, " ม."), getNearValue(d.h*1.2, " ม.")] });
+                qList.push({ q: `ห้อง ${h} มีความสูงเท่าไหร่?`, correct: `${d.h} ม.`, others: generateUniqueOthers(d.h, " ม.") });
                 qList.push({ q: `ห้อง ${h} มีขนาด กว้าง x ยาว เท่าไหร่?`, correct: `${d.dim} ม.`, others: ["100x100 ม.", "50x50 ม."] });
             } else {
-                qList.push({ q: `ห้อง ${h} รองรับ Theatre ได้กี่คน?`, correct: `${d.t} คน`, others: [getNearValue(d.t, " คน"), getNearValue(d.t*1.1, " คน")] });
-                if(d.booth) qList.push({ q: `ห้อง ${h} วางบูธ 3x3 ได้กี่บูธ?`, correct: `${d.booth} บูธ`, others: [getNearValue(d.booth, " บูธ"), getNearValue(d.booth*1.3, " บูธ")] });
+                qList.push({ q: `ห้อง ${h} รองรับ Theatre ได้กี่คน?`, correct: `${d.t} คน`, others: generateUniqueOthers(d.t, " คน") });
+                if(d.booth) qList.push({ q: `ห้อง ${h} วางบูธ 3x3 ได้กี่บูธ?`, correct: `${d.booth} บูธ`, others: generateUniqueOthers(d.booth, " บูธ") });
             }
         });
         qList = qList.sort(() => 0.5 - Math.random()).slice(0, 10);
         curQ = 0; score = 0;
-        document.getElementById('view-f1').classList.remove('active'); document.getElementById('view-f2').classList.remove('active');
-        document.getElementById('quiz-screen').classList.add('active'); loadQ();
+        document.getElementById('view-f1').classList.remove('active');
+        document.getElementById('view-f2').classList.remove('active');
+        document.getElementById('quiz-screen').classList.add('active');
+        document.getElementById('quiz-content').style.display = 'block';
+        document.getElementById('result-area').style.display = 'none';
+        loadQ();
     }
 
     function loadQ() {
         if(curQ >= qList.length) {
             document.getElementById('quiz-content').style.display = 'none';
             document.getElementById('result-area').style.display = 'block';
-            document.getElementById('final-score').innerText = `คะแนน: ${score} / 10`;
+            document.getElementById('final-score').innerText = `คะแนนของคุณ: ${score} / 10`;
             return;
         }
-        const q = qList[curQ]; document.getElementById('q-text').innerText = `ข้อที่ ${curQ+1}: ${q.q}`;
-        const box = document.getElementById('options-box'); box.innerHTML = ""; document.getElementById('feedback').innerText = "";
-        const opts = [q.correct, ...q.others].sort(() => 0.5 - Math.random());
+        const q = qList[curQ];
+        document.getElementById('q-text').innerText = `ข้อที่ ${curQ+1}: ${q.q}`;
+        const box = document.getElementById('options-box');
+        box.innerHTML = "";
+        document.getElementById('feedback').innerText = "";
+        
+        let opts = [q.correct, ...q.others].sort(() => 0.5 - Math.random());
         opts.forEach(opt => {
-            const b = document.createElement('button'); b.className = "option-btn"; b.innerText = opt;
+            const b = document.createElement('button');
+            b.className = "option-btn";
+            b.innerText = opt;
             b.onclick = () => {
                 if(opt === q.correct) { score++; document.getElementById('feedback').innerText = "✅ ถูกต้อง!"; document.getElementById('feedback').style.color = "green"; }
                 else { document.getElementById('feedback').innerText = "❌ ผิด! คำตอบคือ " + q.correct; document.getElementById('feedback').style.color = "red"; }
@@ -222,7 +249,7 @@
 
     init();
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => { navigator.serviceWorker.register('https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.3/workbox-sw.js'); });
+        window.addEventListener('load', () => { navigator.serviceWorker.register('https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.3/workbox-sw.js'); });
     }
 </script>
 </body>
