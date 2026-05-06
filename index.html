@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITEC Sales Onboarding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bitec-red: #e31e24;
+            --bitec-blue: #005eb8;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+        header {
+            background: var(--bitec-red);
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 30px auto;
+        }
+        .section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h2 { color: var(--bitec-blue); border-left: 5px solid var(--bitec-red); padding-left: 10px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-card {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-card b { font-size: 1.2em; color: var(--bitec-red); }
+
+        /* Quiz Style */
+        #quiz-container {
+            text-align: center;
+            border: 2px dashed var(--bitec-blue);
+            background: #fff;
+        }
+        .btn {
+            background: var(--bitec-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: 0.3s;
+        }
+        .btn:hover { background: var(--bitec-red); transform: scale(1.05); }
+        .answer-btn { background: #eee; color: #333; width: 100%; display: block; }
+        #feedback { margin-top: 15px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to BITEC Sales Team</h1>
+    <p>ศูนย์นิทรรศการและการประชุมไบเทค</p>
+</header>
+
+<div class="container">
+    <!-- Intro Section -->
+    <div class="section">
+        <h2>BITEC คือใคร?</h2>
+        <p>Bangkok International Trade & Exhibition Centre (BITEC) คือศูนย์ประชุมชั้นนำระดับโลก ตั้งอยู่บนถนนเทพรัตน (บางนา-ตราด) เชื่อมต่อกับสถานีรถไฟฟ้าบางนา (E13) ทางออก 1</p>
+    </div>
+
+    <!-- Floor Plan Data Section -->
+    <div class="section">
+        <h2>ข้อมูลพื้นที่ (Floor Plan Overview)</h2>
+        <p>ข้อมูลสำคัญจากแผนผังอาคารล่าสุด:</p>
+        <div class="stats-grid">
+            <div class="stat-card">พื้นที่ Event Hall รวม<br><b>41,000 ตร.ม.</b></div>
+            <div class="stat-card">Bhiraj Hall (1-3)<br><b>3,300 ตร.ม.</b></div>
+            <div class="stat-card">ที่จอดรถรวมทั้งหมด<br><b>~5,000 คัน</b></div>
+            <div class="stat-card">EH 98 (ฮอลล์ใหญ่สุด)<br><b>8,600 ตร.ม.</b></div>
+        </div>
+    </div>
+
+    <!-- Interactive Quiz -->
+    <div class="section" id="quiz-container">
+        <h2>Sales Training Quiz 🎯</h2>
+        <p id="question">กดปุ่มด้านล่างเพื่อเริ่มทบทวนความรู้เกี่ยวกับพื้นที่!</p>
+        <div id="options"></div>
+        <div id="feedback"></div>
+        <button class="btn" onclick="generateQuestion()">สุ่มคำถามใหม่</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        { q: "BITEC เชื่อมต่อกับรถไฟฟ้าสถานีใด?", a: ["สถานีอุดมสุข", "สถานีบางนา", "สถานีแบริ่ง"], correct: 1 },
+        { q: "ฮอลล์ใดมีพื้นที่กว้างที่สุด (8,600 ตร.ม.)?", a: ["EH 98", "EH 100", "EH 104"], correct: 0 },
+        { q: "Bhiraj Hall 1-3 ตั้งอยู่ที่ชั้นใดของอาคาร?", a: ["ชั้น Basement", "ชั้น Ground Floor", "ชั้น 2nd Floor"], correct: 2 },
+        { q: "ฮอลล์ EH 100 มีความสูง (Height) เท่าไหร่?", a: ["15 เมตร", "20 เมตร", "25 เมตร"], correct: 2 },
+        { q: "Grand Hall (GH 201-203) มีพื้นที่รวมเท่าไหร่?", a: ["1,720 ตร.ม.", "1,100 ตร.ม.", "3,300 ตร.ม."], correct: 0 }
+    ];
+
+    function generateQuestion() {
+        const randomIndex = Math.floor(Math.random() * quizData.length);
+        const item = quizData[randomIndex];
+        document.getElementById('question').innerText = item.q;
+        document.getElementById('feedback').innerText = "";
+        
+        const optionsDiv = document.getElementById('options');
+        optionsDiv.innerHTML = "";
+        
+        item.a.forEach((opt, index) => {
+            const button = document.createElement('button');
+            button.innerText = opt;
+            button.className = "btn answer-btn";
+            button.onclick = () => checkAnswer(index, item.correct);
+            optionsDiv.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selected, correct) {
+        const feedback = document.getElementById('feedback');
+        if (selected === correct) {
+            feedback.innerText = "✅ ถูกต้อง! เก่งมากครับคุณเซลล์ใหม่";
+            feedback.style.color = "green";
+        } else {
+            feedback.innerText = "❌ ยังไม่ถูกนะ ลองดูแผนผัง (Floor Plan) อีกครั้ง!";
+            feedback.style.color = "red";
+        }
+    }
+
+    // Start with a question
+    generateQuestion();
+</script>
+
+</body>
+</html>
