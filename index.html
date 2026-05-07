@@ -53,4 +53,824 @@
             position: absolute; inset: 0;
             background:
                 radial-gradient(ellipse 80% 60% at 20% 50%, rgba(215,38,56,0.18) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 80% at 80% 40%, rgba(26,58,110,0.25) 0%, transparent
+                radial-gradient(ellipse 60% 80% at 80% 40%, rgba(26,58,110,0.25) 0%, transparent 60%);
+        }
+
+        .header-grid {
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .header-content {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 30px 36px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-mark {
+            width: 56px; height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 0 30px rgba(215,38,56,0.4);
+            flex-shrink: 0;
+        }
+
+        .header-text h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            line-height: 1.1;
+        }
+
+        .header-text h1 span { color: var(--red-light); }
+
+        .header-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .header-badge {
+            margin-left: auto;
+            background: rgba(215,38,56,0.15);
+            border: 1px solid rgba(215,38,56,0.3);
+            color: #ff7a85;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+        }
+
+        /* ===== FLOOR TABS ===== */
+        .floor-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+            background: var(--bg3);
+            padding: 6px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .floor-btn {
+            flex: 1;
+            padding: 13px 20px;
+            border-radius: 11px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Kanit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .floor-btn.active {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            color: white;
+            box-shadow: 0 4px 20px rgba(215,38,56,0.35);
+        }
+
+        .floor-btn:not(.active):hover {
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 20px;
+            display: none;
+            box-shadow: var(--shadow);
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .card.active { display: block; }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-title .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--red);
+            box-shadow: 0 0 12px var(--red);
+        }
+
+        .section-title h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        /* ===== FLOOR IMAGE ===== */
+        .floor-img-wrap {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            background: #111;
+        }
+
+        .floor-img {
+            width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* ===== HALL GRID ===== */
+        .hall-grid-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .hall-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hall-tag {
+            padding: 9px 16px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            font-family: 'Space Mono', monospace;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            letter-spacing: 0.03em;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-muted);
+        }
+
+        .hall-tag:hover, .hall-tag.selected {
+            background: rgba(215,38,56,0.15);
+            border-color: rgba(215,38,56,0.4);
+            color: var(--red-light);
+            transform: translateY(-2px);
+        }
+
+        /* ===== INFO BOX ===== */
+        .info-box {
+            display: none;
+            background: linear-gradient(135deg, rgba(215,38,56,0.05), rgba(26,58,110,0.08));
+            border: 1px solid rgba(215,38,56,0.2);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+            animation: fadeSlide 0.3s ease;
+        }
+
+        .info-box-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hall-badge {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 16px rgba(215,38,56,0.3);
+        }
+
+        .info-box-header .dim-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .data-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .data-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+        .data-item:hover { background: rgba(255,255,255,0.07); }
+
+        .data-item .icon-wrap {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.07);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .data-item .info-text .label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            display: block;
+        }
+
+        .data-item .info-text .value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            line-height: 1.2;
+        }
+
+        /* ===== QUIZ BUTTONS ===== */
+        .quiz-section-title {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 14px;
+            margin-top: 8px;
+        }
+
+        .quiz-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .quiz-btn {
+            border: none;
+            padding: 18px 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-family: 'Kanit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.02em;
+        }
+
+        .quiz-btn::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(255,255,255,0);
+            transition: background 0.2s;
+        }
+        .quiz-btn:hover::before { background: rgba(255,255,255,0.1); }
+        .quiz-btn:active { transform: scale(0.98); }
+
+        .quiz-btn.beginner {
+            background: linear-gradient(135deg, #2d3561, #1a2040);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quiz-btn.intermediate {
+            background: linear-gradient(135deg, #5c3d8f, #3a2060);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quiz-btn .btn-icon { font-size: 1.4rem; display: block; margin-bottom: 6px; }
+        .quiz-btn .btn-label { display: block; font-size: 0.78rem; color: rgba(255,255,255,0.6); font-weight: 400; margin-top: 3px; }
+
+        /* ===== QUIZ SCREEN ===== */
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .quiz-progress-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            margin: 0 16px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--red), var(--red-light));
+            border-radius: 50px;
+            transition: width 0.4s ease;
+        }
+
+        .quiz-counter {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            color: var(--text);
+            min-height: 60px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .options-box { display: flex; flex-direction: column; gap: 10px; }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            padding: 17px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            background: rgba(255,255,255,0.04);
+            color: var(--text);
+            cursor: pointer;
+            font-family: 'Kanit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-btn:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+            transform: translateX(4px);
+        }
+
+        .option-btn::before {
+            content: '○';
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct {
+            background: rgba(34,197,94,0.15);
+            border-color: rgba(34,197,94,0.4);
+            color: #4ade80;
+        }
+
+        .option-btn.wrong {
+            background: rgba(215,38,56,0.15);
+            border-color: rgba(215,38,56,0.4);
+            color: #f87171;
+        }
+
+        .option-btn:disabled { cursor: not-allowed; }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.3);
+            color: #4ade80;
+            display: block;
+        }
+
+        .feedback.wrong {
+            background: rgba(215,38,56,0.1);
+            border: 1px solid rgba(215,38,56,0.3);
+            color: #f87171;
+            display: block;
+        }
+
+        /* ===== RESULT ===== */
+        .result-area {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .result-emoji { font-size: 4rem; margin-bottom: 16px; }
+
+        .result-score {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+            background: linear-gradient(135deg, var(--red-light), var(--blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .result-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 28px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            border: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            color: white;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 6px 24px rgba(215,38,56,0.35);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(215,38,56,0.5);
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 24px 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .header-content { padding: 28px 18px 24px; }
+            .header-text h1 { font-size: 1.35rem; }
+            .header-badge { display: none; }
+            .container { padding: 18px 14px 50px; }
+            .card { padding: 20px 16px; }
+            .quiz-nav { grid-template-columns: 1fr; }
+            .data-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-bg"></div>
+    <div class="header-grid"></div>
+    <div class="header-content">
+        <div class="logo-mark">🏢</div>
+        <div class="header-text">
+            <h1>BITEC <span>Adventure</span></h1>
+            <p>มาเรียนรู้พื้นที่ไบเทคกันเถอะ!</p>
+        </div>
+        <div class="header-badge">SMART LEARNING</div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="floor-selector">
+        <button class="floor-btn active" id="btn-f1" onclick="switchFloor(1)">🏛 BITEC 1st Floor</button>
+        <button class="floor-btn" id="btn-f2" onclick="switchFloor(2)">🏢 BITEC 2nd Floor</button>
+    </div>
+
+    <!-- Floor 1 -->
+    <div id="view-f1" class="card active">
+        <div class="section-title">
+            <div class="dot" style="background:var(--red);box-shadow:0 0 12px var(--red)"></div>
+            <h2>BITEC 1st Floor</h2>
+        </div>
+        <div class="floor-img-wrap">
+            <img id="img-f1" src="BITEC 1st Floor.png" alt="Floor Plan" class="floor-img">
+        </div>
+        <div class="hall-grid-label">เลือกห้องเพื่อดูข้อมูล</div>
+        <div class="hall-grid" id="grid-f1"></div>
+        <div id="details-f1" class="info-box"></div>
+        <div class="divider"></div>
+        <div class="quiz-section-title">แบบทดสอบ — เลือกระดับความยาก</div>
+        <div class="quiz-nav">
+            <button class="quiz-btn beginner" onclick="startQuiz(1, 'beginner')">
+                <span class="btn-icon">🎯</span>
+                Quiz: Beginner
+                <span class="btn-label">ขนาดและความสูง</span>
+            </button>
+            <button class="quiz-btn intermediate" onclick="startQuiz(1, 'intermediate')">
+                <span class="btn-icon">🏆</span>
+                Quiz: Intermediate
+                <span class="btn-label">ความจุและบูธ</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Floor 2 -->
+    <div id="view-f2" class="card">
+        <div class="section-title">
+            <div class="dot" style="background:var(--blue-light);box-shadow:0 0 12px var(--blue-light)"></div>
+            <h2>BITEC 2nd Floor</h2>
+        </div>
+        <div class="floor-img-wrap">
+            <img id="img-f2" src="BITEC 2nd Floor.png" alt="Floor Plan" class="floor-img">
+        </div>
+        <div class="hall-grid-label">เลือกห้องเพื่อดูข้อมูล</div>
+        <div class="hall-grid" id="grid-f2"></div>
+        <div id="details-f2" class="info-box"></div>
+        <div class="divider"></div>
+        <div class="quiz-section-title">แบบทดสอบ — เลือกระดับความยาก</div>
+        <div class="quiz-nav">
+            <button class="quiz-btn beginner" onclick="startQuiz(2, 'beginner')">
+                <span class="btn-icon">🎯</span>
+                Quiz: Beginner
+                <span class="btn-label">ขนาดและความสูง</span>
+            </button>
+            <button class="quiz-btn intermediate" onclick="startQuiz(2, 'intermediate')">
+                <span class="btn-icon">🏆</span>
+                Quiz: Intermediate
+                <span class="btn-label">ความจุและบูธ</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="card">
+        <div class="quiz-header">
+            <span class="quiz-counter" id="quiz-counter">1 / 10</span>
+            <div class="quiz-progress-track">
+                <div class="quiz-progress-fill" id="quiz-progress" style="width:10%"></div>
+            </div>
+            <button onclick="location.reload()" style="background:rgba(255,255,255,0.07);border:1px solid var(--border);color:var(--text-muted);padding:7px 14px;border-radius:8px;cursor:pointer;font-family:'Kanit';font-size:0.8rem;">✕ ออก</button>
+        </div>
+
+        <div id="quiz-content">
+            <div class="q-text" id="q-text"></div>
+            <div class="options-box" id="options-box"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+
+        <div class="result-area" id="result-area">
+            <div class="result-emoji" id="result-emoji">🎉</div>
+            <div class="result-score" id="final-score"></div>
+            <div class="result-label">คะแนนของคุณ</div>
+            <button class="back-btn" onclick="location.reload()">🔙 กลับหน้าหลัก</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const bitecData = {
+        'EH 98':  { f:1, dim:'88×98',  h:15, t:'9,000', c:'5,500', cock:'6,700', b_s:'3,500', booth:'500' },
+        'EH 99':  { f:1, dim:'88×63',  h:15, t:'5,700', c:'3,200', cock:'4,300', b_s:'2,100', booth:'330' },
+        'EH 100': { f:1, dim:'106×63', h:25, t:'7,200', c:'4,000', cock:'5,200', b_s:'2,600', booth:'400' },
+        'EH 101': { f:1, dim:'97×56',  h:15, t:'5,700', c:'3,600', cock:'4,200', b_s:'2,000', booth:'300' },
+        'EH 102': { f:1, dim:'97×54',  h:15, t:'5,700', c:'3,300', cock:'4,000', b_s:'1,800', booth:'300' },
+        'EH 103': { f:1, dim:'97×54',  h:15, t:'5,700', c:'3,300', cock:'4,000', b_s:'1,800', booth:'300' },
+        'EH 104': { f:1, dim:'97×45',  h:15, t:'4,300', c:'2,700', cock:'3,400', b_s:'1,500', booth:'250' },
+        'GH 201-203': { f:2, dim:'31×58', h:9, t:'2,000', c:'1,100', cock:'1,300', b_ns:'1,000', b_s:'900', booth:'100' },
+        'GH 201': { f:2, dim:'31×17', h:9, t:'520', c:'300', cock:'400', b_ns:'320', b_s:'240', booth:'30' },
+        'GH 202': { f:2, dim:'31×18', h:9, t:'520', c:'300', cock:'400', b_ns:'320', b_s:'240', booth:'30' },
+        'GH 203': { f:2, dim:'31×23', h:9, t:'720', c:'400', cock:'500', b_ns:'480', b_s:'360', booth:'30' },
+        'BH 1-3': { f:2, dim:'44×80', h:12, t:'3,600', c:'2,200', cock:'2,100', b_ns:'2,000', b_s:'1,700', booth:'170' },
+        'BH 1':   { f:2, dim:'44×26', h:12, t:'1,200', c:'720', cock:'900', b_ns:'660', b_s:'480', booth:'50' },
+        'BH 2':   { f:2, dim:'44×27', h:12, t:'1,200', c:'720', cock:'900', b_ns:'660', b_s:'480', booth:'60' },
+        'BH 3':   { f:2, dim:'44×26', h:12, t:'1,200', c:'720', cock:'900', b_ns:'660', b_s:'480', booth:'50' },
+        'MR 211': { f:2, dim:'12×9', h:4, t:'80', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 212': { f:2, dim:'12×9', h:4, t:'80', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 213': { f:2, dim:'12×9', h:4, t:'80', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 214': { f:2, dim:'12×9', h:4, t:'80', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 215': { f:2, dim:'12×9', h:4, t:'80', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 216': { f:2, dim:'12×9', h:4, t:'80', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 217': { f:2, dim:'12×9', h:4, t:'80', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 218': { f:2, dim:'10×8', h:4, t:'70', c:'40', cock:'60', u:'20', b_ns:'50', b_s:'40' },
+        'MR 219': { f:2, dim:'10×8', h:4, t:'70', c:'40', cock:'60', u:'20', b_ns:'50', b_s:'40' },
+        'MR 220': { f:2, dim:'10×9', h:4, t:'70', c:'40', cock:'70', u:'20', b_ns:'50', b_s:'40' },
+        'MR 221': { f:2, dim:'10×9', h:4, t:'70', c:'40', cock:'70', u:'20', b_ns:'50', b_s:'40' },
+        'MR 222': { f:2, dim:'12×9', h:4, t:'90', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'MR 223': { f:2, dim:'12×8', h:4, t:'90', c:'60', cock:'70', u:'25', b_ns:'60', b_s:'50' },
+        'MR 224': { f:2, dim:'12×14',h:4, t:'140',c:'80', cock:'130',u:'30', b_ns:'110',b_s:'80' },
+        'MR 225': { f:2, dim:'12×9', h:4, t:'90', c:'60', cock:'80', u:'25', b_ns:'60', b_s:'50' },
+        'SILK 1': { f:2, dim:'10×16', h:6, t:'170', c:'80', cock:'130', u:'40', b_ns:'120', b_s:'90' },
+        'NILE 1': { f:2, dim:'10×16', h:6, t:'170', c:'80', cock:'130', u:'40', b_ns:'120', b_s:'90' },
+        'AMBER 1':{ f:2, dim:'10×16', h:6, t:'170', c:'80', cock:'130', u:'40', b_ns:'120', b_s:'90' },
+        'AMBER 4':{ f:2, dim:'8×12',  h:3, t:'70',  c:'30', cock:'80',  u:'25', b_ns:'60', b_s:'40' }
+    };
+
+    function switchFloor(f) {
+        document.getElementById('view-f1').classList.toggle('active', f===1);
+        document.getElementById('view-f2').classList.toggle('active', f===2);
+        document.getElementById('btn-f1').classList.toggle('active', f===1);
+        document.getElementById('btn-f2').classList.toggle('active', f===2);
+        document.getElementById('quiz-screen').classList.remove('active');
+        document.querySelectorAll('.hall-tag').forEach(t => t.classList.remove('selected'));
+        window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function init() {
+        Object.keys(bitecData).forEach(key => {
+            const f = bitecData[key].f;
+            const btn = document.createElement('div');
+            btn.className = 'hall-tag';
+            btn.innerText = key;
+            btn.onclick = () => {
+                document.querySelectorAll(`#grid-f${f} .hall-tag`).forEach(t => t.classList.remove('selected'));
+                btn.classList.add('selected');
+                const d = bitecData[key];
+                const box = document.getElementById(`details-f${f}`);
+                const img = document.getElementById(`img-f${f}`);
+                img.src = `${key}.png`;
+                img.onerror = () => { img.src = f===1 ? 'BITEC 1st Floor.png' : 'BITEC 2nd Floor.png'; };
+                box.style.display = 'block';
+
+                const items = [
+                    { icon: '📐', label: 'ขนาด (กว้าง × ยาว)', value: `${d.dim} ม.` },
+                    { icon: '↕️', label: 'ความสูง', value: `${d.h} ม.` },
+                    { icon: '🎭', label: 'Theatre', value: `${d.t} คน` },
+                    { icon: '📚', label: 'Classroom', value: `${d.c} คน` },
+                    { icon: '🥂', label: 'Cocktail', value: `${d.cock} คน` },
+                    d.u    ? { icon: '🔲', label: 'U-Shape', value: `${d.u} คน` } : null,
+                    d.b_ns ? { icon: '🍽️', label: 'Banquet (ไม่มีเวที)', value: `${d.b_ns} คน` } : null,
+                    d.b_s  ? { icon: '🎪', label: 'Banquet (มีเวที)', value: `${d.b_s} คน` } : null,
+                    d.booth? { icon: '🏪', label: 'Booth 3×3', value: `${d.booth} บูธ` } : null,
+                ].filter(Boolean);
+
+                box.innerHTML = `
+                    <div class="info-box-header">
+                        <div class="hall-badge">📍 ${key}</div>
+                        <div class="dim-text">${d.dim} ม. · สูง ${d.h} ม.</div>
+                    </div>
+                    <div class="data-row">
+                        ${items.map(item => `
+                            <div class="data-item">
+                                <div class="icon-wrap">${item.icon}</div>
+                                <div class="info-text">
+                                    <span class="label">${item.label}</span>
+                                    <span class="value">${item.value}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            };
+            document.getElementById(`grid-f${f}`).appendChild(btn);
+        });
+    }
+
+    function generateSmartOthers(correctValue, type) {
+        let others = new Set();
+        let num = parseFloat(correctValue.toString().replace(/,/g, ''));
+        while(others.size < 2) {
+            let newVal, suffix;
+            if (type === 'capacity') {
+                let diff = Math.max(50, Math.round(num * (0.15 + Math.random() * 0.1) / 50) * 50);
+                newVal = Math.random() > 0.5 ? num + diff : num - diff;
+                suffix = ' คน';
+            } else if (type === 'booth') {
+                let diff = [20, 30, 50, 100][Math.floor(Math.random()*4)];
+                newVal = Math.random() > 0.5 ? num + diff : num - diff;
+                suffix = ' บูธ';
+            } else {
+                let diff = Math.floor(Math.random()*3+1);
+                newVal = Math.random() > 0.5 ? num + diff : num - diff;
+                suffix = ' ม.';
+            }
+            if(newVal > 0 && newVal !== num) others.add(newVal.toLocaleString() + suffix);
+        }
+        return Array.from(others);
+    }
+
+    let qList = [], curQ = 0, score = 0;
+
+    function startQuiz(floor, level) {
+        const halls = Object.keys(bitecData).filter(k => bitecData[k].f === floor);
+        qList = [];
+        halls.forEach(h => {
+            const d = bitecData[h];
+            if(level === 'beginner') {
+                qList.push({ q: `ห้อง ${h} มีความสูงเท่าไหร่?`, correct: `${d.h} ม.`, others: generateSmartOthers(d.h.toString(), 'height') });
+                qList.push({ q: `ห้อง ${h} มีขนาด กว้าง × ยาว เท่าไหร่?`, correct: `${d.dim} ม.`, others: ['95×47 ม.', '85×63 ม.'] });
+            } else {
+                qList.push({ q: `ห้อง ${h} รองรับ Theatre ได้กี่คน?`, correct: `${d.t} คน`, others: generateSmartOthers(d.t, 'capacity') });
+                if(d.booth) qList.push({ q: `ห้อง ${h} วางบูธ 3×3 ได้กี่บูธ?`, correct: `${d.booth} บูธ`, others: generateSmartOthers(d.booth, 'booth') });
+            }
+        });
+        qList = qList.sort(() => 0.5 - Math.random()).slice(0, 10);
+        curQ = 0; score = 0;
+
+        document.getElementById('view-f1').classList.remove('active');
+        document.getElementById('view-f2').classList.remove('active');
+        const qs = document.getElementById('quiz-screen');
+        qs.classList.add('active');
+        document.getElementById('quiz-content').style.display = 'block';
+        document.getElementById('result-area').style.display = 'none';
+        loadQ();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function loadQ() {
+        const counter = document.getElementById('quiz-counter');
+        const progress = document.getElementById('quiz-progress');
+        counter.innerText = `${Math.min(curQ+1, 10)} / 10`;
+        progress.style.width = `${((curQ) / 10) * 100}%`;
+
+        if(curQ >= qList.length) {
+            document.getElementById('quiz-content').style.display = 'none';
+            const ra = document.getElementById('result-area');
+            ra.style.display = 'block';
+            const pct = score / 10;
+            document.getElementById('result-emoji').innerText = pct >= 0.8 ? '🏆' : pct >= 0.5 ? '👍' : '📖';
+            document.getElementById('final-score').innerText = `${score} / 10`;
+            progress.style.width = '100%';
+            return;
+        }
+
+        const q = qList[curQ];
+        document.getElementById('q-text').innerText = `ข้อที่ ${curQ+1}:  ${q.q}`;
+        const box = document.getElementById('options-box');
+        box.innerHTML = '';
+        const fb = document.getElementById('feedback');
+        fb.innerText = ''; fb.className = 'feedback';
+
+        let opts = [q.correct, ...q.others].sort(() => 0.5 - Math.random());
+        opts.forEach(opt => {
+            const b = document.createElement('button');
+            b.className = 'option-btn';
+            b.innerText = opt;
+            b.onclick = () => {
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.disabled = true;
+                    if(btn.innerText === q.correct) btn.classList.add('correct');
+                });
+                if(opt === q.correct) {
+                    score++;
+                    fb.innerText = '✅ ถูกต้อง!';
+                    fb.className = 'feedback correct';
+                } else {
+                    b.classList.add('wrong');
+                    fb.innerText = `❌ ผิด! คำตอบที่ถูกต้องคือ "${q.correct}"`;
+                    fb.className = 'feedback wrong';
+                }
+                curQ++;
+                setTimeout(loadQ, 1600);
+            };
+            box.appendChild(b);
+        });
+    }
+
+    init();
+</script>
+</body>
+</html>
